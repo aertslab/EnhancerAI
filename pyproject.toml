@@ -62,7 +62,7 @@ addopts = [
 ]
 
 [tool.hatch.version]
-+source = "vcs"
+source = "vcs"
 
 [tool.ruff]
 line-length = 120
