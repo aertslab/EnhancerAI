@@ -4,7 +4,7 @@ requires = ["hatchling","hatch-vcs"]
 
 [project]
 name = "EnhancerAI"
-version = ["version"]
+dynamic = ["version"]
 description = "A deep learning toolkit for investigating the gene regulatory code"
 readme = "README.md"
 requires-python = ">=3.9"
