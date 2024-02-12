@@ -9,6 +9,8 @@
 
 A deep learning toolkit for investigating the gene regulatory code
 
+**IN PROGRESS, NOT RELEASED YET**
+
 ## Getting started
 
 Please refer to the [documentation][link-docs]. In particular, the
