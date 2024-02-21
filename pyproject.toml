@@ -7,7 +7,7 @@ name = "EnhancerAI"
 dynamic = ["version"]
 description = "A deep learning toolkit for investigating the gene regulatory code"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
     {name = "Lukas Mahieu"},
