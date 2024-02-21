@@ -5,7 +5,9 @@ from pathlib import Path
 from anndata import AnnData
 
 
-def import_topics(topics_folder: Path, peaks_file: Path, topics_subset: list | None = None) -> AnnData:
+def import_topics(
+    topics_folder: Path, peaks_file: Path, topics_subset: list | None = None
+) -> AnnData:
     """
     Import topic and consensus regions BED files into AnnData format.
 
