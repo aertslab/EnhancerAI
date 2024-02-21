@@ -3,8 +3,8 @@
 [![Tests][badge-tests]][link-tests]
 [![Documentation][badge-docs]][link-docs]
 
-[badge-tests]: https://img.shields.io/github/actions/workflow/status/LukasMahieu/EnhancerAI/test.yaml?branch=main
-[link-tests]: https://github.com/aertslab/EnhancerAI//actions/workflows/test.yml
+[badge-tests]: https://img.shields.io/github/actions/workflow/status/aertslab/EnhancerAI/test.yaml?branch=main
+[link-tests]: https://github.com/aertslab/EnhancerAI/actions/workflows/test.yml
 [badge-docs]: https://img.shields.io/readthedocs/EnhancerAI
 
 A deep learning toolkit for investigating the gene regulatory code
@@ -51,8 +51,7 @@ If you found a bug, please use the [issue tracker][issue-tracker].
 
 > t.b.a
 
-[scverse-discourse]: https://discourse.scverse.org/
-[issue-tracker]: https://github.com/LukasMahieu/EnhancerAI/issues
+[issue-tracker]: https://github.com/aertslab/EnhancerAI/issues
 [changelog]: https://EnhancerAI.readthedocs.io/latest/changelog.html
 [link-docs]: https://EnhancerAI.readthedocs.io
 [link-api]: https://EnhancerAI.readthedocs.io/latest/api.html
