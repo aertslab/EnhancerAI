@@ -7,7 +7,7 @@ name = "EnhancerAI"
 dynamic = ["version"]
 description = "A deep learning toolkit for investigating the gene regulatory code"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = {file = "LICENSE"}
 authors = [
     {name = "Lukas Mahieu"},
@@ -22,6 +22,7 @@ dependencies = [
     "anndata",
     # for debug logging (referenced from the issue template)
     "session-info",
+    "pandas"
 ]
 
 [project.optional-dependencies]
