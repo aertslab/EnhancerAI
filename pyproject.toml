@@ -20,9 +20,10 @@ urls.Source = "https://github.com/aertslab/EnhancerAI/"
 urls.Home-page = "https://github.com/aertslab/EnhancerAI/"
 dependencies = [
     "anndata",
-    # for debug logging (referenced from the issue template)
     "session-info",
-    "pandas"
+    "pandas",
+    "tqdm",
+    "Pyarrow"
 ]
 
 [project.optional-dependencies]
@@ -47,6 +48,7 @@ doc = [
 test = [
     "pytest",
     "coverage",
+    "anndata"
 ]
 
 [tool.coverage.run]
