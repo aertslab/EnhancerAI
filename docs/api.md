@@ -9,7 +9,6 @@
 .. autosummary::
     :toctree: generated
 
-    pp.import_topics
 ```
 
 ## Tools
