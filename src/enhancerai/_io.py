@@ -98,6 +98,13 @@ def import_topics(
     ann_data.obs["file_path"] = topic_file_paths
     ann_data.obs["n_open_regions"] = ann_data.X.sum(axis=1)
     ann_data.var["n_topics"] = ann_data.X.sum(axis=0)
+    ann_data.var["chr"] = ann_data.var.index.str.split(":").str[0]
+    ann_data.var["start"] = (
+        ann_data.var.index.str.split(":").str[1].str.split("-").str[0]
+    ).astype(int)
+    ann_data.var["end"] = (
+        ann_data.var.index.str.split(":").str[1].str.split("-").str[1]
+    ).astype(int)
 
     # Output checks
     topics_no_open_regions = ann_data.obs[ann_data.obs["n_open_regions"] == 0]
