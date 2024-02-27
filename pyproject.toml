@@ -23,7 +23,9 @@ dependencies = [
     "session-info",
     "pandas",
     "tqdm",
-    "Pyarrow"
+    "Pyarrow",
+    "seaborn",
+    "lightning"
 ]
 
 [project.optional-dependencies]
