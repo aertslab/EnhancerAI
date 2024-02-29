@@ -6,10 +6,14 @@ from pathlib import Path
 
 import pandas as pd
 from anndata import AnnData
+from scipy.sparse import csr_matrix
 
 
 def import_topics(
-    topics_folder: PathLike, peaks_file: PathLike, topics_subset: list | None = None
+    topics_folder: PathLike,
+    peaks_file: PathLike,
+    topics_subset: list | None = None,
+    compress: bool = True,
 ) -> AnnData:
     """
     Import topic and consensus regions BED files into AnnData format.
@@ -38,6 +42,9 @@ def import_topics(
         List of topics to include in the AnnData object. If None, all topics
         will be included.
         Topics should be named after the topics file name without the extension.
+    compress
+        Compress the AnnData.X matrix. If True, the matrix will be stored as
+        a sparse matrix. If False, the matrix will be stored as a dense matrix.
 
     Returns
     -------
@@ -105,6 +112,9 @@ def import_topics(
     ann_data.var["end"] = (
         ann_data.var.index.str.split(":").str[1].str.split("-").str[1]
     ).astype(int)
+
+    if compress:
+        ann_data.X = csr_matrix(ann_data.X)
 
     # Output checks
     topics_no_open_regions = ann_data.obs[ann_data.obs["n_open_regions"] == 0]
