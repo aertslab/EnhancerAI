@@ -1,1 +1,1 @@
-from ._deeptopic import DeepTopic
+from ._deeptopic_cnn import DeepTopicCNN
