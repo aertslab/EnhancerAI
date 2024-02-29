@@ -25,7 +25,9 @@ dependencies = [
     "tqdm",
     "Pyarrow",
     "seaborn",
-    "lightning"
+    "lightning",
+    "torchmetrics",
+    "wandb>=0.12.10"
 ]
 
 [project.optional-dependencies]
