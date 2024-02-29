@@ -115,3 +115,98 @@ def add_dna_sequence(
     sequence_df = pd.concat(seq_dfs, axis=0).loc[adata.var_names]
     adata.varm[sequence_varm_key] = sequence_df
     adata.varm[code_varm_key] = sequence_df.applymap(_dna_to_code)
+
+
+def train_val_test_split(
+    adata: AnnData,
+    test_size: float = 0.1,
+    val_size: float = 0.1,
+    shuffle: bool = True,
+    random_state: None | int = None,
+    type: str = "random",
+    chr_val: list[str] = None,
+    chr_test: list[str] = None,
+    chr_var_key: str = "chr",
+) -> None:
+    """
+    Add 'train/val/test' split column to AnnData object.
+
+    This function adds a new column to the `.obs` or `.var` DataFrame of the AnnData object,
+    indicating whether each sample should be part of the training, validation, or test set.
+
+    Parameters
+    ----------
+    adata
+        AnnData object to which the 'train/val/test' split column will be added.
+    test_size
+        Proportion of the dataset to include in the test split.
+    val_size
+        Proportion of the training dataset to include in the validation split.
+    shuffle
+        Whether or not to shuffle the data before splitting (when type='random').
+    random_state
+        When shuffle is True, random_state affects the ordering of the indices.
+    type
+        Type of split. Either 'random' or 'chr'. If 'chr', the "target" df should
+        have a column "chr" with the chromosome names.
+    chr_val
+        List of chromosomes to include in the validation set. Required if type='chr'.
+    chr_test
+        List of chromosomes to include in the test set. Required if type='chr'.
+    chr_var_key
+        Key in `.var` for chromosome.
+
+    Returns
+    -------
+    None
+
+    Adds a new column to `adata.obs` or `adata.var`:
+        'split': 'train', 'val', or 'test'
+    """
+    import math
+
+    # Input checks
+    if type not in ["random", "chr"]:
+        raise ValueError("`type` should be either 'random' or 'chr'")
+    if type == "chr":
+        if chr_val is None or chr_test is None:
+            raise ValueError(
+                "If `type` is 'chr', `chr_val` and `chr_test` should be provided."
+            )
+        if chr_var_key not in adata.var.columns:
+            raise ValueError(
+                f"Column '{chr_var_key}' not found in `.var`. "
+                "Make sure to add the chromosome information to the `.var` DataFrame."
+            )
+        unique_chr = adata.var[chr_var_key].unique()
+        if not set(chr_val).issubset(unique_chr):
+            raise ValueError(
+                "Some chromosomes in `chr_val` are not present in the dataset."
+            )
+        if not set(chr_test).issubset(unique_chr):
+            raise ValueError(
+                "Some chromosomes in `chr_test` are not present in the dataset."
+            )
+
+    # Split
+    n_samples = adata.n_vars
+
+    if type == "random":
+        if shuffle:
+            np.random.seed(seed=random_state)
+            indices = np.random.permutation(n_samples)
+        else:
+            indices = np.arange(n_samples)
+
+        test_n = math.ceil(n_samples * test_size)
+        val_n = math.ceil(n_samples * val_size)
+
+        split = pd.Series("train", index=adata.var_names)
+        split.iloc[indices[:test_n]] = "test"
+        split.iloc[indices[test_n : test_n + val_n]] = "val"
+    elif type == "chr":
+        split = pd.Series("train", index=adata.var_names)
+        split[adata.var[chr_var_key].isin(chr_test)] = "test"
+        split[adata.var[chr_var_key].isin(chr_val)] = "val"
+
+    adata.var["split"] = split
