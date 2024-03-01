@@ -1,6 +1,7 @@
+from __future__ import annotations
+
 import tempfile
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -29,8 +30,8 @@ def add_dna_sequence(
     adata: AnnData,
     seq_len: int = 2114,
     genome_name: str = "hg38",
-    genome_dir: Optional[Path] = None,
-    genome_provider: Optional[str] = None,
+    genome_dir: Path | None = None,
+    genome_provider: str | None = None,
     install_genome: bool = True,
     chr_var_key: str = "chr",
     start_var_key: str = "start",
